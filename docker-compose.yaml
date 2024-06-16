@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - '8080:80'
+    volumes:
+      - .:/var/www/html
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - php-fpm
+  php-fpm:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: php:8-fpm
+    volumes:
+      - .:/var/www/html
+
+  mysql:
+    image: mysql:5.7
+    container_name: royaliberia-mysql
+    working_dir: /application
+    environment:
+      - MYSQL_ROOT_PASSWORD=dbrootpw
+      - MYSQL_DATABASE=rootsge
+      - MYSQL_USER=dbuser
+      - MYSQL_PASSWORD=dbpw
+      - MYSQL_ALLOW_EMPTY_PASSWORD=false
+      - MYSQL_RANDOM_ROOT_PASSWORD=false
+    ports:
+      - 9018:3306
+
+volumes:
+  database_data:
