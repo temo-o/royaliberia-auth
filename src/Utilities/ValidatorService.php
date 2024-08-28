@@ -2,8 +2,8 @@
 
 namespace App\Utilities;
 
-use App\DTO\Interfaces\RequestDtoInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\DTO\Interfaces\BaseDTOInterface;
+use Symfony\Component\Validator\{ConstraintViolationList, Validator\ValidatorInterface};
 
 class ValidatorService
 {
@@ -11,19 +11,8 @@ class ValidatorService
     {
     }
 
-    public function validateRequest(RequestDtoInterface $dto): array
+    public function validateRequest(BaseDTOInterface $dto): ConstraintViolationList
     {
-        $errors = $this->validator->validate($dto);
-        $errorMessage = [];
-
-        if(count($errors) > 0){
-            foreach ($errors as $key=>$error) {
-                $errorMessage[$key]['code'] = '';
-                $errorMessage[$key]['field'] = $error->getPropertyPath();
-                $errorMessage[$key]['message'] = $error->getMessage();
-            }
-        }
-
-        return $errorMessage;
+        return $this->validator->validate($dto);
     }
 }
