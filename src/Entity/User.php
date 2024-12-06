@@ -8,10 +8,11 @@ use JsonSerializable;
 use phpDocumentor\Reflection\Types\Integer;
 use SebastianBergmann\CodeCoverage\Report\PHP;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity]
 #[ORM\Table(name: "users")]
-class User implements JsonSerializable, PasswordAuthenticatedUserInterface
+class User implements JsonSerializable, PasswordAuthenticatedUserInterface, UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -54,6 +55,21 @@ class User implements JsonSerializable, PasswordAuthenticatedUserInterface
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->id;
+    }
+
+    public function eraseCredentials(): void
+    {
+
+    }
+
+    public function getRoles(): array
+    {
+        return ['ROLE_USER'];
     }
 
     /**

@@ -1,5 +1,5 @@
 <?php
-g
+
 namespace App\Controller;
 use App\DTO\RegisterUserRequest;
 use App\Service\RegistrationService;
