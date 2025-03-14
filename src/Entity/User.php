@@ -59,7 +59,7 @@ class User implements JsonSerializable, PasswordAuthenticatedUserInterface, User
 
     public function getUserIdentifier(): string
     {
-        return (string) $this->id;
+        return $this->email;
     }
 
     public function eraseCredentials(): void
