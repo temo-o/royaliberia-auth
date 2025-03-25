@@ -30,7 +30,7 @@ class JWTAuthenticationSuccessHandler implements AuthenticationSuccessHandlerInt
         $payload = [
             'id' => $user->getId(),
             'username' => $user->getUserIdentifier(),
-            'roles' => $user->getRoles(),
+            'roles' => $user->getRole(),
             'iat' => time(),
             'exp' => time() + 3600
         ];
